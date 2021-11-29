@@ -8,6 +8,7 @@ export default function request(url, options, token) {
       var req = new XMLHttpRequest()
       if (options.method === 'GET') {
         let _url = createURL(url, options.body)
+        console.log(_url);
         req.open(options.method, _url)
       } else {
         req.open(options.method, url)
