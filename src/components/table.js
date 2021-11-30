@@ -11,7 +11,7 @@ function CustomTable({ title, sum, dataSource, columns }) {
           合计： <span>{sum}</span>项
         </div>
       </div>
-      <Table pagination={false} dataSource={dataSource} columns={columns} />
+      <Table rowKey="pkId" pagination={false} dataSource={dataSource} columns={columns} />
     </div>
   );
 }
