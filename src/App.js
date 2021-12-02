@@ -5,6 +5,7 @@ import { getDataAction } from "./service/service";
 import Header from "./components/header";
 import CustomTable from "./components/table";
 import { dailyData } from "./mock";
+import {constructDailyColumn,constructAllColumn,constructMonthColumn,landMonthColumn,ownerAllColumn,ownerMonthColumn} from './column'
 const column = [
   {
     title: "序号",
@@ -47,6 +48,9 @@ function App() {
   const [constructDaily, setConstructDaily] = useState([]);
   const [constructAll, setConstructAll] = useState([]);
   const [constructMonth, setConstructMonth] = useState([]);
+  const [landMonth, setLandMonth] = useState([]);
+  const [ownMonth, setOwnMonth] = useState([]);
+  const [ownAllMonth, setOwnAllMonth] = useState([]);
 
   const getConstructData = useCallback(() => {
     getDataAction({
@@ -68,54 +72,78 @@ function App() {
       setConstructMonth(month);
     });
   }, []);
+  const getLandData = useCallback(() => {
+    getDataAction({
+      projectType: 2,
+      queryType: 3,
+    }).then((data) => {
+      setLandMonth(data);
+    });
+  }, []);
+  const getOwnData = useCallback(() => {
+    getDataAction({
+      projectType: 3,
+      queryType: 3,
+    }).then((data) => {
+      setOwnMonth(data);
+    });
+    getDataAction({
+      projectType: 3,
+      queryType: 2,
+    }).then((data) => {
+      setOwnAllMonth(data);
+    });
+  }, []);
   useEffect(() => {
     getConstructData();
-  }, [getConstructData]);
+    getLandData()
+    getOwnData()
+  }, [getConstructData,getLandData,getOwnData]);
   return (
     <div className="App">
       <Header />
       <div className="content">
         <CustomTable
           dataSource={constructDaily}
-          columns={column}
+          columns={constructDailyColumn}
           title="建设工程-当日交易项目信息"
           sum={constructDaily.length}
         />
         <div className="two-table">
           <CustomTable
             dataSource={constructAll}
-            columns={column}
+            columns={constructAllColumn}
             title="建设工程-可参与项目信息"
             sum={constructAll.length}
             className="left-table"
           />
           <CustomTable
             dataSource={constructMonth}
-            columns={column}
+            columns={constructMonthColumn}
             title="建设工程-近一月成交时间"
             sum={constructMonth.length}
             className="right-table"
           />
         </div>
         <CustomTable
-          dataSource={dailyData}
-          columns={column}
+          dataSource={landMonth}
+          columns={landMonthColumn}
           title="土地矿权-近一月成交信息"
-          sum={dailyData.length}
+          sum={landMonth.length}
         />
         <div className="two-table">
           <CustomTable
-            dataSource={dailyData}
-            columns={column}
+            dataSource={ownMonth}
+            columns={ownerMonthColumn}
             title="资产资源-近一月成交信息"
-            sum={dailyData.length}
+            sum={ownMonth.length}
             className="left-table"
           />
           <CustomTable
-            dataSource={dailyData}
-            columns={column}
+            dataSource={ownAllMonth}
+            columns={ownerAllColumn}
             title="资产资源-可参与项目信息"
-            sum={dailyData.length}
+            sum={ownAllMonth.length}
             className="right-table"
           />
         </div>
