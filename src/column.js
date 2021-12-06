@@ -43,6 +43,7 @@ export const constructAllColumn = [
         dataIndex: "pkId",
         key: "pkId",
         render: (text, record, index) => index + 1,
+        width:60,
       },
       {
         title: "项目名称",
