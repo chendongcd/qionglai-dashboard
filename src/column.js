@@ -78,6 +78,7 @@ export const constructMonthColumn = [
         dataIndex: "pkId",
         key: "pkId",
         render: (text, record, index) => index + 1,
+        width:60,
       },
       {
         title: "项目名称",
@@ -139,7 +140,7 @@ export const landMonthColumn = [
         key: "dealDate",
       },
       {
-        title: "成交价/元",
+        title: "成交价",
         dataIndex: "dealPrice",
         key: "dealPrice",
       },
@@ -155,6 +156,7 @@ export const ownerMonthColumn = [
         dataIndex: "noticeNo",
         key: "noticeNo",
         render: (text, record, index) => index + 1,
+        width:60,
       },
       {
         title: "公众号",
@@ -172,12 +174,12 @@ export const ownerMonthColumn = [
         key: "projectCode",
       },
       {
-        title: "起始价/元",
+        title: "起始价",
         dataIndex: "startPrice",
         key: "startPrice",
       },
       {
-        title: "成交价/元",
+        title: "成交价",
         dataIndex: "dealPrice",
         key: "dealPrice",
       },
@@ -193,6 +195,7 @@ export const ownerAllColumn = [
         dataIndex: "noticeNo",
         key: "noticeNo",
         render: (text, record, index) => index + 1,
+        width:60,
       },
       {
         title: "公众号",

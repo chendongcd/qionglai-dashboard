@@ -88,29 +88,25 @@ function App() {
     setLoading(true);
     Promise.all([getConstructData(), getLandData(), getOwnData()]).then(() => {
       setLoading(false);
-      console.log("load end");
     });
   }, [getConstructData, getLandData, getOwnData]);
   useEffect(() => {
     const firstKeys = Object.keys(firstProgress);
     const secondKeys = Object.keys(secondProgress);
     if (
-      !loading &&
+      !loading && 
       firstKeys.length > 0 &&
       firstKeys.every((key) => firstProgress[key])
     ) {
-      console.log('设置current:2')
       setCurrent(2);
       setFirstProgress({});
       return;
     }
-    console.log(firstProgress)
     if (
-      !loading &&
+      !loading && 
       secondKeys.length > 0 &&
       secondKeys.every((key) => secondProgress[key])
     ) {
-      console.log('设置current:1')
       setCurrent(1);
       setSecondProgress({});
       return;
@@ -122,7 +118,7 @@ function App() {
     }
     if (current === 2) {
       return (
-        <Fragment>
+        <div>
           <CustomTable
             dataSource={landMonth}
             columns={landMonthColumn}
@@ -130,6 +126,7 @@ function App() {
             sum={landMonth.length}
             setProgress={setSPorgress}
             labelKey="landMonth"
+            currentScreen={current}
           />
           <div className="two-table">
             <CustomTable
@@ -140,6 +137,7 @@ function App() {
               className="left-table"
               setProgress={setSPorgress}
               labelKey="ownMonth"
+              currentScreen={current}
             />
             <CustomTable
               dataSource={ownAllMonth}
@@ -149,13 +147,14 @@ function App() {
               className="right-table"
               setProgress={setSPorgress}
               labelKey="ownAllMonth"
+              currentScreen={current}
             />
           </div>
-        </Fragment>
+        </div>
       );
     }
     return (
-      <Fragment>
+      <div>
         <CustomTable
         dataSource={constructDaily}
         columns={constructDailyColumn}
@@ -163,6 +162,7 @@ function App() {
         sum={constructDaily.length}
         setProgress={setFPorgress}
         labelKey="constructDaily"
+        currentScreen={current}
       />
         <div className="two-table">
           <CustomTable
@@ -173,6 +173,7 @@ function App() {
           className="left-table"
           setProgress={setFPorgress}
           labelKey="constructAll"
+          currentScreen={current}
         />
           <CustomTable
             dataSource={constructMonth}
@@ -182,9 +183,10 @@ function App() {
             className="right-table"
             setProgress={setFPorgress}
             labelKey="constructMonth"
+            currentScreen={current}
           />
         </div>
-      </Fragment>
+      </div>
     );
   }, [constructAll, constructDaily, constructMonth, current, landMonth, loading, ownAllMonth, ownMonth, setFPorgress, setSPorgress]);
   return (

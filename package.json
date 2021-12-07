@@ -151,5 +151,8 @@
       "react-app"
     ]
   },
-  "proxy": "https://portal.cdggzy.com"
+  "proxy": "https://portal.cdggzy.com",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
 }

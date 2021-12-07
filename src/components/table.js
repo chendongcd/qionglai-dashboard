@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Table } from "antd";
 import { useState, useMemo, useRef, useCallback, useEffect } from "react";
 import "./table.less";
@@ -10,6 +11,7 @@ function CustomTable({
   columns,
   setProgress,
   labelKey,
+  currentScreen
 }) {
   const [current, setCurrent] = useState(1);
   const intervel = useRef(null);
@@ -24,10 +26,10 @@ function CustomTable({
     if (pages === 0) {
       return setProgress(labelKey, true);
     }
+    setProgress(labelKey, false);
     intervel.current = setInterval(() => {
-      setProgress(labelKey, false);
       setCurrent((prev) => {
-        if (prev === pages && pages > 0) {
+        if (prev >= pages && pages > 0) {
           clearInterval(intervel.current);
           setProgress(labelKey, true);
           return prev;
@@ -35,7 +37,7 @@ function CustomTable({
         return prev + 1;
       });
     }, speed);
-  }, [labelKey, pages, setProgress]);
+  }, [labelKey, pages, current, setProgress]);
   useEffect(() => {
     if (dataSource.length > 0) {
       changeCurrent();
@@ -48,17 +50,43 @@ function CustomTable({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataSource]);
+  
+  const newColumns = useMemo(() => {
+    const temp = [...columns];
+    temp[0].render = (text, record, index) =>{
+      if(current>pages&& pages > 0){
+        return index + 1 + (current - 2) * pageSize;
+      }
+      return index + 1 + (current - 1) * pageSize;
+    }
+    return temp;
+  }, [columns, labelKey, current]);
+
+  useEffect(() => {
+    setCurrent(1)
+}, [currentScreen]);
+  useEffect(() => {
+      console.log("重新进入");
+    return () => {
+        console.log("离去");
+      if (intervel && intervel.current) {
+        clearInterval(intervel.current);
+      }
+    };
+  }, []);
   return (
     <div className="table">
       <div className="title">
         <div className="line" />
         {title}{" "}
         <div className="sum">
-          合计： <span>{sum}</span>项
+          合计： <span className="sum-num">{sum}</span> 项
         </div>
       </div>
       <Table
-        rowKey={(record,index)=>labelKey+index}
+        rowKey={(record, index) => {
+          return labelKey + (index + 1 + (current - 1) * pageSize);
+        }}
         footer={false}
         pagination={{
           pageSize,
@@ -66,8 +94,8 @@ function CustomTable({
         }}
         size="small"
         dataSource={dataSource}
-        columns={columns}
-        locale={{emptyText:'暂无数据'}}
+        columns={newColumns}
+        locale={{ emptyText: "暂无数据" }}
       />
     </div>
   );
