@@ -1,11 +1,13 @@
-import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/ie9';
 import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { init } from './rem';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+init()
 ReactDOM.render(
   <React.StrictMode>
     <App />

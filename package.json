@@ -153,6 +153,7 @@
   },
   "proxy": "https://portal.cdggzy.com",
   "devDependencies": {
+    "@njleonzhang/postcss-px-to-rem": "^1.0.1",
     "express": "^4.17.1"
   }
 }

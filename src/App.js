@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState, Fragment } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { Spin } from 'antd';
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import "./App.less";
@@ -118,7 +118,7 @@ function App() {
     }
     if (current === 2) {
       return (
-        <div>
+        <div className="content-table">
           <CustomTable
             dataSource={landMonth}
             columns={landMonthColumn}
@@ -154,7 +154,7 @@ function App() {
       );
     }
     return (
-      <div>
+      <div className="content-table">
         <CustomTable
         dataSource={constructDaily}
         columns={constructDailyColumn}

@@ -1,15 +1,26 @@
 .App{
+  height: 100vh;
   .content{
-    padding: 29px 20px;
-
-    .two-table{
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin-top: 35px;
+    padding: 5px;
+    height: calc(100% - 50px);
+    overflow: hidden;
+    .content-table{
+      height: 100%;
       .table{
-        &:nth-child(1){
-          margin-right: 8px;
+        height:calc(50% - 4.5px);
+      }
+      .two-table{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 9px;
+        // height: 100%;
+        height:calc(50% - 4.5px);
+        .table{
+          height: 100%;
+          &:nth-child(1){
+            margin-right: 8px;
+          }
         }
       }
     }
