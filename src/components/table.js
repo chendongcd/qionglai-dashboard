@@ -2,7 +2,7 @@
 import { Table } from "antd";
 import { useState, useMemo, useRef, useCallback, useEffect } from "react";
 import "./table.less";
-const pageSize = 5;
+const pageSize = 4;
 const speed = 10000;
 function CustomTable({
   title,
@@ -96,6 +96,7 @@ function CustomTable({
         dataSource={dataSource}
         columns={newColumns}
         locale={{ emptyText: "暂无数据" }}
+        className="custom-table"
       />
     </div>
   );

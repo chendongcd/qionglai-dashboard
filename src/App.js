@@ -178,7 +178,7 @@ function App() {
           <CustomTable
             dataSource={constructMonth}
             columns={constructMonthColumn}
-            title="建设工程-近一月成交时间"
+            title="建设工程-近一月成交信息"
             sum={constructMonth.length}
             className="right-table"
             setProgress={setFPorgress}
