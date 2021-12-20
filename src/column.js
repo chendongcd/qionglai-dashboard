@@ -43,7 +43,7 @@ export const constructAllColumn = [
         dataIndex: "pkId",
         key: "pkId",
         render: (text, record, index) => index + 1,
-        width:60,
+        width: 50,
       },
       {
         title: "项目名称",
@@ -78,7 +78,7 @@ export const constructMonthColumn = [
         dataIndex: "pkId",
         key: "pkId",
         render: (text, record, index) => index + 1,
-        width:60,
+        width:50,
       },
       {
         title: "项目名称",
@@ -156,7 +156,7 @@ export const ownerMonthColumn = [
         dataIndex: "noticeNo",
         key: "noticeNo",
         render: (text, record, index) => index + 1,
-        width:60,
+        width:50,
       },
       {
         title: "公众号",
@@ -195,7 +195,7 @@ export const ownerAllColumn = [
         dataIndex: "noticeNo",
         key: "noticeNo",
         render: (text, record, index) => index + 1,
-        width:60,
+        width:50,
       },
       {
         title: "公众号",
