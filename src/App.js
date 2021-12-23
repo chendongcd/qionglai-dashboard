@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from "react";
-import { Spin } from 'antd';
+import { Spin } from "antd";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import "./App.less";
 import { getDataAction } from "./service/service";
@@ -22,8 +22,6 @@ function App() {
   const [ownMonth, setOwnMonth] = useState([]);
   const [ownAllMonth, setOwnAllMonth] = useState([]);
   const [current, setCurrent] = useState(1);
-  const [firstProgress, setFirstProgress] = useState({});
-  const [secondProgress, setSecondProgress] = useState({});
   const [loading, setLoading] = useState(true);
 
   const getConstructData = useCallback(() => {
@@ -68,131 +66,117 @@ function App() {
       setOwnAllMonth(data);
     });
   }, []);
-  const setFPorgress = useCallback((key, value) => {
-    setFirstProgress((prev) => {
-      return {
-        ...prev,
-        [key]: value,
-      };
-    });
-  }, []);
-  const setSPorgress = useCallback((key, value) => {
-    setSecondProgress((prev) => {
-      return {
-        ...prev,
-        [key]: value,
-      };
-    });
-  }, []);
   useEffect(() => {
     setLoading(true);
     Promise.all([getConstructData(), getLandData(), getOwnData()]).then(() => {
       setLoading(false);
     });
   }, [getConstructData, getLandData, getOwnData]);
-  useEffect(() => {
-    const firstKeys = Object.keys(firstProgress);
-    const secondKeys = Object.keys(secondProgress);
-    if (
-      !loading && 
-      firstKeys.length > 0 &&
-      firstKeys.every((key) => firstProgress[key])
-    ) {
-      setCurrent(2);
-      setFirstProgress({});
-      return;
-    }
-    if (
-      !loading && 
-      secondKeys.length > 0 &&
-      secondKeys.every((key) => secondProgress[key])
-    ) {
-      setCurrent(1);
-      setSecondProgress({});
-      return;
-    }
-  }, [firstProgress, loading, secondProgress]);
+
   const renderContent = useCallback(() => {
-    if(loading){
-      return <div className="loading-wrapper"><Spin size="large"/></div>
-    }
-    if (current === 2) {
+    if (loading) {
       return (
-        <div className="content-table">
-          <CustomTable
-            dataSource={landMonth}
-            columns={landMonthColumn}
-            title="土地矿权-近一月成交信息"
-            sum={landMonth.length}
-            setProgress={setSPorgress}
-            labelKey="landMonth"
-            currentScreen={current}
-          />
-          <div className="two-table">
-            <CustomTable
-              dataSource={ownMonth}
-              columns={ownerMonthColumn}
-              title="资产资源-近一月成交信息"
-              sum={ownMonth.length}
-              className="left-table"
-              setProgress={setSPorgress}
-              labelKey="ownMonth"
-              currentScreen={current}
-            />
-            <CustomTable
-              dataSource={ownAllMonth}
-              columns={ownerAllColumn}
-              title="资产资源-可参与项目信息"
-              sum={ownAllMonth.length}
-              className="right-table"
-              setProgress={setSPorgress}
-              labelKey="ownAllMonth"
-              currentScreen={current}
-            />
-          </div>
+        <div className="loading-wrapper">
+          <Spin size="large" />
         </div>
       );
     }
-    return (
-      <div className="content-table">
+    if (current === 2) {
+      return (
         <CustomTable
-        dataSource={constructDaily}
-        columns={constructDailyColumn}
-        title="建设工程-当日交易项目信息"
-        sum={constructDaily.length}
-        setProgress={setFPorgress}
-        labelKey="constructDaily"
-        currentScreen={current}
-      />
-        <div className="two-table">
-          <CustomTable
           dataSource={constructAll}
           columns={constructAllColumn}
           title="建设工程-可参与项目信息"
           sum={constructAll.length}
           className="left-table"
-          setProgress={setFPorgress}
+          setProgress={setCurrent}
           labelKey="constructAll"
           currentScreen={current}
         />
-          <CustomTable
-            dataSource={constructMonth}
-            columns={constructMonthColumn}
-            title="建设工程-近一月成交信息"
-            sum={constructMonth.length}
-            className="right-table"
-            setProgress={setFPorgress}
-            labelKey="constructMonth"
-            currentScreen={current}
-          />
-        </div>
-      </div>
+      );
+    }
+    if (current === 3) {
+      return (
+        <CustomTable
+          dataSource={constructMonth}
+          columns={constructMonthColumn}
+          title="建设工程-近一月成交信息"
+          sum={constructMonth.length}
+          className="right-table"
+          setProgress={setCurrent}
+          labelKey="constructMonth"
+          currentScreen={current}
+        />
+      );
+    }
+    if (current === 4) {
+      return (
+        <CustomTable
+          dataSource={landMonth}
+          columns={landMonthColumn}
+          title="土地矿权-近一月成交信息"
+          sum={landMonth.length}
+          setProgress={setCurrent}
+          labelKey="landMonth"
+          currentScreen={current}
+        />
+      );
+    }
+    if (current === 5) {
+      return (
+        <CustomTable
+          dataSource={ownMonth}
+          columns={ownerMonthColumn}
+          title="资产资源-近一月成交信息"
+          sum={ownMonth.length}
+          className="left-table"
+          setProgress={setCurrent}
+          labelKey="ownMonth"
+          currentScreen={current}
+        />
+      );
+    }
+    if (current === 6) {
+      return (
+        <CustomTable
+          dataSource={ownAllMonth}
+          columns={ownerAllColumn}
+          title="资产资源-可参与项目信息"
+          sum={ownAllMonth.length}
+          className="right-table"
+          setProgress={setCurrent}
+          labelKey="ownAllMonth"
+          currentScreen={current}
+        />
+      );
+    }
+    return (
+      <CustomTable
+        dataSource={constructDaily}
+        columns={constructDailyColumn}
+        title="建设工程-当日交易项目信息"
+        sum={constructDaily.length}
+        setProgress={setCurrent}
+        labelKey="constructDaily"
+        currentScreen={current}
+      />
     );
-  }, [constructAll, constructDaily, constructMonth, current, landMonth, loading, ownAllMonth, ownMonth, setFPorgress, setSPorgress]);
+  }, [
+    constructAll,
+    constructDaily,
+    constructMonth,
+    current,
+    landMonth,
+    loading,
+    ownAllMonth,
+    ownMonth,
+  ]);
   return (
     <div className="App">
       <Header />
-      <div className="content">{renderContent()}</div>
+      <div className="content">
+        <div className="content-table">{renderContent()}</div>
+      </div>
     </div>
   );
 }
