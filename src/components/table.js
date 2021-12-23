@@ -3,7 +3,7 @@ import { Table } from "antd";
 import { useState, useMemo, useRef, useCallback, useEffect } from "react";
 import "./table.less";
 const pageSize = 10;
-const speed = 5000;
+const speed = 10000;
 function CustomTable({
   title,
   sum,
