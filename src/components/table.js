@@ -2,7 +2,6 @@
 import { Table } from "antd";
 import { useState, useMemo, useRef, useCallback, useEffect } from "react";
 import "./table.less";
-const pageSize = 10;
 const speed = 10000;
 function CustomTable({
   title,
@@ -12,6 +11,7 @@ function CustomTable({
   setProgress,
   labelKey,
   currentScreen,
+  pageSize = 10,
 }) {
   const [current, setCurrent] = useState(1);
   const intervel = useRef(null);
@@ -100,6 +100,7 @@ function CustomTable({
           pageSize,
           current,
         }}
+        bordered
         size="small"
         dataSource={dataSource}
         columns={newColumns}

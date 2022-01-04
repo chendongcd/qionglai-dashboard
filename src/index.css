@@ -21,4 +21,10 @@ code {
 }
 .ant-table-cell{
   font-size: 1.3rem;
+  background-color: #040c4c;
+  color: white;
+}
+.ant-table-thead .ant-table-cell {
+  background-color: #040c4c !important;
+  color: #89CFD3;
 }
