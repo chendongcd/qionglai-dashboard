@@ -133,7 +133,6 @@ function App() {
           setProgress={setCurrent}
           labelKey="ownMonth"
           currentScreen={current}
-          pageSize={8}
         />
       );
     }

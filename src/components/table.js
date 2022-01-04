@@ -11,7 +11,7 @@ function CustomTable({
   setProgress,
   labelKey,
   currentScreen,
-  pageSize = 10,
+  pageSize = 6,
 }) {
   const [current, setCurrent] = useState(1);
   const intervel = useRef(null);
